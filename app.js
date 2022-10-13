@@ -10,7 +10,7 @@ const sauceRoutes = require('./routes/sauce');
 
 const userRoutes = require('./routes/user');
 
-mongoose.connect('mongodb+srv://userProjet6_Piq:Sauce_2022@cluster0.peigdat.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://userProjet6_Piq:Sauce_2022@cluster0.ft3xo2s.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
