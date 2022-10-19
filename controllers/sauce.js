@@ -1,4 +1,4 @@
-const Sauce = require('../models/sauce');
+const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
 exports.createSauce = (req, res, next) => {
@@ -18,13 +18,7 @@ exports.createSauce = (req, res, next) => {
 
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({_id: req.params.id})
-    .then((sauce) => {
-        if (sauce.userId != req.auth.userId) {
-            res.status(403).json({message: 'Unauthorized request'});
-        } else {
-            res.status(200).json(sauce);
-        }
-    })
+    .then((sauce) => {res.status(200).json(sauce)})
     .catch((error) => {res.status(404).json({ error: error })});
 };
 
@@ -54,8 +48,8 @@ exports.deleteSauce = (req, res, next) => {
           if (sauce.userId != req.auth.userId) {
               res.status(403).json({message: 'Unauthorized request'});
           } else {
-              const filename = sauce.imageUrl.split('/images/')[1];
-              fs.unlink(`images/${filename}`, () => {
+          const filename = sauce.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
                 Sauce.deleteOne({_id: req.params.id})
                       .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
                       .catch(error => res.status(401).json({ error }));
@@ -66,14 +60,11 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 exports.getAllSauce = (req, res, next) => {
-    Sauce.find().then(
-    (sauces) => {
-        if (sauce.userId != req.auth.userId) {
-            res.status(403).json({message: 'Unauthorized request'});
-        } else {
-            res.status(200).json(sauces);
-        }
-    })
-    .catch(
-    (error) => {res.status(400).json({ error: error })});
+	Sauce.find()
+		.then((sauces) => {
+			res.status(200).json(sauces)
+		})
+		.catch((error) => {
+			res.status(400).json({ error: error })
+		})
 };
