@@ -1,13 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const path = require('path');
+
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const cors = require('cors');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://userProjet6_Piq:Sauce_2022@cluster0.ft3xo2s.mongodb.net/?retryWrites=true&w=majority',
+// Protection contre certaines vulnérabilité connues
+app.use(helmet());
+
+//connection à la base de donnée
+mongoose.connect(`mongodb+srv://${process.env.DB}`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
