@@ -6,12 +6,15 @@ const MIME_TYPES = {
   'image/png': 'png'
 };
 
+//Configuration de multer
 const storage = multer.diskStorage({
+  //Destination des fichiers images
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
+  //Création du nom des fichiers images
   filename: (req, file, callback) => {
-    const name = file.originalname.split(' ').join('_');
+    const name = file.originalname.split(' ').join('_');//Remplacement des espaces par underscore
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
